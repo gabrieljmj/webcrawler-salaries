@@ -21,9 +21,18 @@ class GetSalariesData implements OperationInterface
         foreach ($rows as $i => $row) {
             if ($i > 0) {
                 $columns = $row->getElementsByTagName('td');
+
+                $normaLegalCol = $columns[4];
+                $normaLegalLink = $normaLegalCol->getElementsByTagName('a');
+                $normaLegal = count($normaLegalLink) ? $normaLegalLink[0]->nodeValue : $normaLegalCol->nodeValue;
+
                 $data[] = [
-                    'vigencia' => $columns[0]->nodeValue,
-                    'valor_mensal' => $columns[1]->nodeValue,
+                    'vigencia' => trim($columns[0]->nodeValue),
+                    'valor_mensal' => trim($columns[1]->nodeValue),
+                    'valor_diario' => trim($columns[2]->nodeValue),
+                    'valor_hora' => trim($columns[3]->nodeValue),
+                    'norma_legal' => trim($normaLegal),
+                    'dou' => trim($columns[5]->nodeValue),
                 ];
             }
         }
