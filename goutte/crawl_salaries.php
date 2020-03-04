@@ -16,9 +16,17 @@ function crawl_salaries(Crawler $crawler): array
     $data = $rows->each(function (Crawler $row) {
         $col = $row->filter('td'); // Get all columns
 
+        $normaLegalCol = $col->eq(4);
+        $normaLegalLink = $normaLegalCol->filter('a');
+        $normaLegal = count($normaLegalLink) ? $normaLegalLink->first()->text() : $normaLegalCol->text();
+
         return [
             'vigencia' => $col->eq(0)->text(), // Column 0 (first)
             'valor_mensal' => $col->eq(1)->text(), // Column 1 (second)
+            'valor_diario' => $col->eq(2)->text(),
+            'valor_hora' => $col->eq(3)->text(),
+            'norma_legal' => $normaLegal,
+            'dou' => $col->eq(5)->text(),
         ];
     });
 
