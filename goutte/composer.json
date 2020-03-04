@@ -1,0 +1,10 @@
+{
+    "autoload": {
+        "files": [
+            "crawl_salaries.php"
+        ]
+    },
+    "require": {
+        "fabpot/goutte": "^4.0"
+    }
+}
